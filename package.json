@@ -1,0 +1,17 @@
+{
+  "name": "mart-management-system-mean",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Mart Management System - MEAN stack (MongoDB, Express, Angular, Node.js)",
+  "scripts": {
+    "install:all": "npm install --prefix backend && npm install --prefix frontend && npm install",
+    "seed": "npm run seed --prefix backend",
+    "backend": "npm run dev --prefix backend",
+    "frontend": "npm start --prefix frontend",
+    "dev": "concurrently -n api,web -c cyan,magenta \"npm run backend\" \"npm run frontend\"",
+    "build": "npm run build --prefix frontend"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.0"
+  }
+}

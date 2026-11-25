@@ -1,0 +1,7 @@
+node_modules
+dist
+.angular
+.env*
+!.env.example
+backend/uploads/products/*
+!backend/uploads/products/.gitkeep
