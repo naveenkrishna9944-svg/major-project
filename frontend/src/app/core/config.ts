@@ -1,5 +1,6 @@
 /**
  * Base URL of the Node/Express API.
- * Change this if you run the backend on a different host or port.
+ * Empty means same origin: on Vercel, `/api/*` and `/uploads/*` are routed to the backend service,
+ * and `ng serve` forwards them to http://localhost:5000 via proxy.conf.json.
  */
-export const API_BASE_URL = 'http://localhost:5000';
+export const API_BASE_URL = '';
