@@ -7,6 +7,7 @@ const { MongoStore } = require('connect-mongo');
 const mongoose = require('mongoose');
 const { PORT, MONGO_URI, SESSION_SECRET, CLIENT_ORIGINS, IS_PRODUCTION } = require('./src/config/env');
 const { ApiError } = require('./src/utils/response');
+const { serveUploads } = require('./src/utils/storage');
 
 const app = express();
 
@@ -55,7 +56,7 @@ app.use(session({
 try {
   fs.mkdirSync(path.join(__dirname, 'uploads', 'products'), { recursive: true });
 } catch {}
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('/uploads', serveUploads);
 
 app.get('/api', (req, res) => res.json({ status: true, message: 'Mart Management API is running.' }));
 

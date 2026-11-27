@@ -9,8 +9,11 @@
     "dev": "node --watch server.js",
     "seed": "node src/seed/seed.js"
   },
-  "engines": { "node": ">=20.19" },
+  "engines": {
+    "node": ">=20.19"
+  },
   "dependencies": {
+    "@vercel/blob": "^2.9.0",
     "bcryptjs": "^3.0.3",
     "connect-mongo": "^6.0.0",
     "cors": "^2.8.6",

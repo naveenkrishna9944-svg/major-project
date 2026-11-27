@@ -1,6 +1,6 @@
 const path = require('path');
-const fs = require('fs/promises');
 const crypto = require('crypto');
+const { saveUpload } = require('../utils/storage');
 const router = require('express').Router();
 const multer = require('multer');
 const {
@@ -14,7 +14,6 @@ const { str, toInt, toFloat, escapeRegex, byId } = require('../utils/helpers');
 
 router.use(requireLogin);
 
-const UPLOAD_DIR = path.join(__dirname, '..', '..', 'uploads', 'products');
 const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 10 * 1024 * 1024 } });
 
 const ALLOWED_EXT = ['jpg', 'jpeg', 'png', 'webp'];
@@ -25,9 +24,9 @@ async function storeImage(file, { enforceSize }) {
   if (!ALLOWED_EXT.includes(ext)) fail('Invalid image format. Allowed: jpg, jpeg, png, webp.');
   if (enforceSize && file.size > 3 * 1024 * 1024) fail('Image size must be under 3MB.');
   const filename = `prod_${Date.now().toString(16)}${crypto.randomBytes(3).toString('hex')}.${ext}`;
-  await fs.mkdir(UPLOAD_DIR, { recursive: true });
-  await fs.writeFile(path.join(UPLOAD_DIR, filename), file.buffer);
-  return `uploads/products/${filename}`;
+  const relPath = `uploads/products/${filename}`;
+  await saveUpload(relPath, file.buffer);
+  return relPath;
 }
 
 const nullable = (v) => {
